@@ -19,6 +19,8 @@ if [ "$BATT_STATUS" = "Discharging" ]; then
       notify-send "Battery critical" "Suspending in 5 seconds" -i "$ICONS_PATH"/batt-critical.png -u normal
       sleep 5
       systemctl suspend
+      sleep 3
+      hyprlock
       touch "$WARN_CRITICAL_FILE"
     fi
   elif [ "$BATT_LEVEL" -le "$LOW" ]; then
@@ -30,7 +32,7 @@ if [ "$BATT_STATUS" = "Discharging" ]; then
     :
   fi
 
-  rm "$WARN_FULL_FILE"
+  rm -f "$WARN_FULL_FILE"
 
 elif [ "$BATT_STATUS" = "Charging" ]; then
   rm -f "$WARN_CRITICAL_FILE"
